@@ -2,7 +2,7 @@ package robot.oi;
 
 import com.torontocodingcollective.oi.TButton;
 import com.torontocodingcollective.oi.TGameController;
-import com.torontocodingcollective.oi.TGameController_Logitech;
+import com.torontocodingcollective.oi.TGameController_Xbox;
 import com.torontocodingcollective.oi.TOi;
 import com.torontocodingcollective.oi.TRumbleManager;
 import com.torontocodingcollective.oi.TStick;
@@ -32,13 +32,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class OI extends TOi {
 
-    private TGameController driverController = new TGameController_Logitech(0);
+    private TGameController driverController = new TGameController_Xbox(0);
     private TRumbleManager  driverRumble     = new TRumbleManager("Driver", driverController);
+
+    private TGameController operatorController = new TGameController_Xbox(1);
+    private TRumbleManager  operatorRumble     = new TRumbleManager("Operator", operatorController);
 
     private TToggle         compressorToggle = new TToggle(driverController, TStick.LEFT);
     private TToggle         speedPidToggle   = new TToggle(driverController, TStick.RIGHT);
 
     private DriveSelector   driveSelector    = new DriveSelector();
+
+
+    /************************
+    *         DRIVER        *
+    *************************/
 
     @Override
     public boolean getCancelCommand() {
@@ -59,27 +67,10 @@ public class OI extends TOi {
         return driverController.getButton(TButton.START);
     }
 
-    @Override
-    public int getRotateToHeading() {
-        return driverController.getPOV();
-    }
-
-    /**
-     * Get the selected drive type
-     * 
-     * @return {@link DriveControlType} selected on the SmartDashboard. The default
-     *         drive type is {@link DriveControlType#ARCADE}
-     */
     public DriveControlType getSelectedDriveType() {
         return driveSelector.getDriveControlType();
     }
 
-    /**
-     * Get the selected single stick side
-     * 
-     * @return {@link TStick} selected on the SmartDashboard. The default single
-     *         stick drive is {@link TStick#RIGHT}
-     */
     public TStick getSelectedSingleStickSide() {
         return driveSelector.getSingleStickSide();
     }
@@ -90,7 +81,7 @@ public class OI extends TOi {
     }
 
     public boolean getTurboOn() {
-        return driverController.getButton(TButton.LEFT_BUMPER);
+        return driverController.getButton(TButton.RIGHT_BUMPER);
     }
 
     public void init() {
@@ -101,6 +92,19 @@ public class OI extends TOi {
     public void setSpeedPidEnabled(boolean state) {
         speedPidToggle.set(state);
     }
+
+    /************************
+    *       OPERATOR        *
+    *************************/
+
+    public boolean elevatorUp() {
+		return operatorController.getButton(TButton.RIGHT_BUMPER);
+    }
+
+    public boolean elevatorDown() {
+		return operatorController.getButton(TButton.LEFT_BUMPER);
+    }
+
 
     @Override
     public void updatePeriodic() {
