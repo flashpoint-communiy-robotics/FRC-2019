@@ -1,44 +1,114 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package robot.commands.elevator;
 
-import edu.wpi.first.wpilibj.command.Command;
+import com.torontocodingcollective.TConst;
+import com.torontocodingcollective.commands.TSafeCommand;
 
-public class DefaultLiftCommand extends Command {
-  public DefaultLiftCommand() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-  }
+import edu.wpi.first.wpilibj.*;
+import robot.Robot;
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-  }
+/**
+ *
+ */
+public class DefaultLiftCommand extends TSafeCommand {
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-  }
+	private static final String COMMAND_NAME = 
+			DefaultLiftCommand.class.getSimpleName();
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
+	public DefaultLiftCommand() {
 
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-  }
+		super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+		// Use requires() here to declare subsystem dependencies
+        requires(Robot.elevatorSubsystem);
+        
+	}
+
+	@Override
+	protected String getCommandName() { return COMMAND_NAME; }
+
+	@Override
+	protected String getParmDesc() { 
+		return super.getParmDesc(); 
+	}
+
+	// Called just before this Command runs the first time
+	@Override
+	protected void initialize() {
+		// Print the command parameters if this is the current
+		// called command (it was not sub-classed)
+		if (getCommandName().equals(COMMAND_NAME)) {
+			logMessage(getParmDesc() + " starting");
+		}
+	}
+            int intakePos = 1;
+	// Called repeatedly when this Command is scheduled to run
+	@Override
+	protected void execute() {
+        
+        
+
+    	if (Robot.oi.elevatorUp()) {
+            Robot.elevatorSubsystem.elevatorUp();
+        
+        }else if (Robot.oi.elevatorDown()){
+            Robot.elevatorSubsystem.elevatorDown();
+
+		}else {
+            Robot.elevatorSubsystem.stopElevator();
+        }
+        /** 
+        // Claw Pos 1
+        if(Robot.oi.clawUp()) {
+            // Check if Claw is at Mid
+            if (intakePos==3){
+                Robot.wristSubsystem.clawUp();
+                Timer.delay(.4);
+                Robot.wristSubsystem.clawStop();
+                intakePos = 1;
+            // Check if Claw is not at Pos 1
+            }else if(intakePos!=1){
+                Robot.wristSubsystem.clawUp();
+                Timer.delay(.8);
+                Robot.wristSubsystem.clawStop(); 
+                intakePos=1;    
+            }
+
+        // Claw Pos 2
+		}else if (Robot.oi.clawDown()) {
+            // Check if Claw is at Mid
+            if (intakePos==3){
+                Robot.wristSubsystem.clawDown();
+                Timer.delay(-.4);
+                Robot.wristSubsystem.clawStop();
+                intakePos = 2;
+
+            // Check if Claw is not at Pos 2
+            }else if(intakePos!=2){
+                Robot.wristSubsystem.clawDown();
+                Timer.delay(.8);
+                Robot.wristSubsystem.clawStop();
+                intakePos = 2; 
+            }
+        
+        // Claw Pos 3
+        }else if (Robot.oi.clawMid()) {
+            if (intakePos!=3){
+            Robot.wristSubsystem.clawDown();
+            Timer.delay(.4);
+            Robot.wristSubsystem.clawStop();
+            intakePos = 3;
+            }
+
+        }else{
+            Robot.wristSubsystem.clawStop();
+        }
+		**/
+	}
+
+	// Make this return true when this Command no longer needs to run execute()
+	@Override
+	protected boolean isFinished() {
+		return false;
+	}
+
 }

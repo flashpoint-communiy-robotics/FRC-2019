@@ -1,24 +1,67 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import com.torontocodingcollective.speedcontroller.TCanSpeedController;
+import com.torontocodingcollective.subsystem.TSubsystem;
+
+import robot.RobotMap;
+import robot.commands.elevator.DefaultLiftCommand;
 
 /**
- * Add your docs here.
+ * Subsystem for arm mechanism.
+ * 64 encoder counts per revolution, approx. 10 counts / degree
+ * 60 revolutions = 1 full 360 degree arm turn, 1 revolution = 6 degrees
  */
-public class ElevatorSubsystem extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
-}
+public class ElevatorSubsystem extends TSubsystem {
+
+    TCanSpeedController leftElevator = new TCanSpeedController(
+    		RobotMap.LEFT_ELEVATOR_CAN_SPEED_CONTROLLER_TYPE,RobotMap.LEFT_ELEVATOR_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.LEFT_ELEVATOR_FOLLOWER_CAN_SPEED_CONTROLLER_TYPE,RobotMap.LEFT_ELEVATOR_FOLLOWER_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.LEFT_ELEVATOR_CAN_MOTOR_ISINVERTED);
+    TCanSpeedController rightElevator = new TCanSpeedController(
+    		RobotMap.RIGHT_ELEVATOR_CAN_SPEED_CONTROLLER_TYPE,RobotMap.RIGHT_ELEVATOR_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.RIGHT_ELEVATOR_FOLLOWER_CAN_SPEED_CONTROLLER_TYPE,RobotMap.RIGHT_ELEVATOR_FOLLOWER_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.RIGHT_ELEVATOR_CAN_MOTOR_ISINVERTED);
+    
+    @Override
+    public void init() {
+    };
+
+    @Override
+    protected void initDefaultCommand() {
+        setDefaultCommand(new DefaultLiftCommand());
+    }	
+    
+    public void elevatorUp() {
+    	leftElevator.set(1);
+        rightElevator.set(1);
+    }
+
+    public void elevatorDown() {
+    	leftElevator.set(-1);
+        rightElevator.set(-1);
+    }
+
+    public void elevatorUpSlow() {
+    	leftElevator.set(0.5);
+        rightElevator.set(0.5);
+    }
+
+    public void elevatorDownSlow() {
+    	leftElevator.set(-0.5);
+        rightElevator.set(-0.5);
+    }
+    
+    public void stopElevator() {
+    	leftElevator.set(0);
+        rightElevator.set(0);
+    }
+
+
+    // Periodically update the dashboard and any PIDs or sensors
+    @Override
+    public void updatePeriodic() {
+
+    	// Monitor for limits
+    	// This is done in case a command starts the motor and 
+    	// does not update the motor speed at the end of the command
+    	
+    	}
+    
+    }
