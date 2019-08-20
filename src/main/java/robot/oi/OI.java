@@ -8,6 +8,7 @@ import com.torontocodingcollective.oi.TRumbleManager;
 import com.torontocodingcollective.oi.TStick;
 import com.torontocodingcollective.oi.TStickPosition;
 import com.torontocodingcollective.oi.TToggle;
+import com.torontocodingcollective.oi.TTrigger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -105,6 +106,25 @@ public class OI extends TOi {
 		return operatorController.getButton(TButton.LEFT_BUMPER);
     }
 
+    public boolean intakeFwd(){
+        return operatorController.getButton(TTrigger.LEFT);
+    }
+
+    public boolean intakeBkd(){
+        return operatorController.getButton(TTrigger.RIGHT);
+    }
+
+    public boolean wristDown(){
+        return operatorController.getButton(TButton.A);
+    }
+
+    public boolean wristMid(){
+        return operatorController.getButton(TButton.X);
+    }
+
+    public boolean wristUp(){
+        return operatorController.getButton(TButton.Y);
+    }
 
     @Override
     public void updatePeriodic() {
