@@ -73,9 +73,9 @@ public class RobotMap {
     // ******************************************
     // Pneumatics Ports
     // ******************************************
-    public static final int                     SHIFTER_PNEUMATIC_PORT = 0;
-    public static final int						HATCH_FORKS_SOLENOID = 1;
-    public static final int						HATCH_SLIDE_SOLENOID = 2;
+    public static final int                     SHIFTER_PNEUMATIC_PORT = 1;
+    public static final int						HATCH_FORKS_SOLENOID = 2;
+    public static final int						HATCH_SLIDE_SOLENOID = 3;
 
     // Initializers if this code will be deployed to more than one
     // robot with different mappings
@@ -104,16 +104,16 @@ public class RobotMap {
             RIGHT_DRIVE_CAN_ENCODER_ISINVERTED                = TConst.NOT_INVERTED;
 
             // Elevator
-            LEFT_ELEVATOR_CAN_SPEED_CONTROLLER_ADDRESS           = 4;
+            LEFT_ELEVATOR_CAN_SPEED_CONTROLLER_ADDRESS           = 6;
             LEFT_ELEVATOR_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
-            LEFT_ELEVATOR_FOLLOWER_CAN_SPEED_CONTROLLER_ADDRESS  = 5;
+            LEFT_ELEVATOR_FOLLOWER_CAN_SPEED_CONTROLLER_ADDRESS  = 7;
             LEFT_ELEVATOR_FOLLOWER_CAN_SPEED_CONTROLLER_TYPE     = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LEFT_ELEVATOR_CAN_MOTOR_ISINVERTED                   = TConst.INVERTED;
             LEFT_ELEVATOR_CAN_ENCODER_ISINVERTED                 = TConst.INVERTED;
 
-            RIGHT_ELEVATOR_CAN_SPEED_CONTROLLER_ADDRESS          = 6;
+            RIGHT_ELEVATOR_CAN_SPEED_CONTROLLER_ADDRESS          = 4;
             RIGHT_ELEVATOR_CAN_SPEED_CONTROLLER_TYPE             = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
-            RIGHT_ELEVATOR_FOLLOWER_CAN_SPEED_CONTROLLER_ADDRESS = 7;
+            RIGHT_ELEVATOR_FOLLOWER_CAN_SPEED_CONTROLLER_ADDRESS = 5;
             RIGHT_ELEVATOR_FOLLOWER_CAN_SPEED_CONTROLLER_TYPE    = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             RIGHT_ELEVATOR_CAN_MOTOR_ISINVERTED                  = TConst.NOT_INVERTED;
             RIGHT_ELEVATOR_CAN_ENCODER_ISINVERTED                = TConst.NOT_INVERTED;

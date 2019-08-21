@@ -102,6 +102,26 @@ public class DefaultIntakeCommand extends TSafeCommand {
         }else{
             Robot.intakeSubsystem.stopWrist();
         }
+
+
+    // HATCH MECH STUFF
+        if (Robot.oi.hatchPickup()){
+            System.out.print("george why! why was i built to feel nothing but pain! what is wrong with you! why george!");
+            Robot.intakeSubsystem.slideOut();
+            Robot.intakeSubsystem.forksOut();
+        }else{
+            Robot.intakeSubsystem.forksIn();
+            Robot.intakeSubsystem.slideIn();
+        }
+        if (Robot.oi.hatchPlace()){
+            Robot.intakeSubsystem.slideOut();
+            Timer.delay(1);
+            Robot.intakeSubsystem.forksOut();
+            Timer.delay(0.5);
+        }else{
+            Robot.intakeSubsystem.forksIn();
+            Robot.intakeSubsystem.slideIn();
+        }
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

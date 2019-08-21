@@ -3,6 +3,7 @@ package robot.subsystems;
 import com.torontocodingcollective.speedcontroller.TPwmSpeedController;
 import com.torontocodingcollective.subsystem.TSubsystem;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import robot.RobotMap;
 import robot.commands.intake.DefaultIntakeCommand;
 
@@ -23,6 +24,9 @@ public class IntakeSubsystem extends TSubsystem {
         TPwmSpeedController intakeRight = new TPwmSpeedController
         (RobotMap.INTAKE_RIGHT_SPEED_CONTROLLER_TYPE, RobotMap.INTAKE_RIGHT_SPEED_CONTROLLER_ADDRESS, RobotMap.INTAKE_RIGHT_MOTOR_ISINVERTED);
 
+        Solenoid forkSolenoid = new Solenoid(RobotMap.HATCH_FORKS_SOLENOID);
+        Solenoid slideSolenoid =new Solenoid( RobotMap.HATCH_SLIDE_SOLENOID);
+    
     @Override
     public void init() {
     };
@@ -54,10 +58,27 @@ public class IntakeSubsystem extends TSubsystem {
     public void wristDown() {
     	intakeWrist.set(-0.5);
     }
-    
+
     public void stopWrist() {
     	intakeWrist.set(0);
     }
+
+    public void forksOut() {
+		forkSolenoid.set(true);
+	}
+    
+    public void forksIn() {
+		forkSolenoid.set(false);
+    }
+    
+    public void slideOut() {
+		forkSolenoid.set(true);
+	}
+    
+    public void slideIn() {
+		forkSolenoid.set(false);
+	}
+    
 
 
     // Periodically update the dashboard and any PIDs or sensors
