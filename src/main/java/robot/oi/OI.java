@@ -94,6 +94,14 @@ public class OI extends TOi {
         speedPidToggle.set(state);
     }
 
+    public boolean hatchPickup(){
+        return driverController.getButton(TButton.B);
+    }
+
+    public boolean hatchPlace(){
+        return driverController.getButton(TButton.A);
+    }
+
     /************************
     *       OPERATOR        *
     *************************/
